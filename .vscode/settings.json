@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["planetscale", "superjson"]
+  "cSpell.words": [
+    "fastly",
+    "planetscale",
+    "Ratelimit",
+    "ratelimiter",
+    "superjson",
+    "upstash"
+  ]
 }
