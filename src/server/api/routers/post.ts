@@ -25,7 +25,7 @@ const ratelimit = new Ratelimit({
 export const postRouter = createTRPCRouter({
   getAll: publicProcedure
     .query(async ({ ctx }) => {
-      const posts = await ctx.db.post.findMany({
+      const posts = await ctx.prisma.post.findMany({
         take: 100,
         orderBy: [
           { createdAt: "desc" },
@@ -71,7 +71,7 @@ export const postRouter = createTRPCRouter({
       const { success } = await ratelimit.limit(authorId)
       if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" })
 
-      const post = await ctx.db.post.create({
+      const post = await ctx.prisma.post.create({
         data: {
           authorId,
           content: input.content,

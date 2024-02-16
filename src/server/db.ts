@@ -10,7 +10,7 @@ const globalForPrisma = globalThis as unknown as {
 
 const client = new Client({ url: env.DATABASE_URL });
 
-export const db =
+export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({
     log:
@@ -18,4 +18,4 @@ export const db =
     adapter: new PrismaPlanetScale(client),
   });
 
-if (env.NODE_ENV !== "production") globalForPrisma.prisma = db;
+if (env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;

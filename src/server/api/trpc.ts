@@ -12,7 +12,7 @@ import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
-import { db } from "~/server/db";
+import { prisma } from "~/server/db";
 
 /**
  * 1. CONTEXT
@@ -36,7 +36,7 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
   const userId = sesh.userId
 
   return {
-    db,
+    prisma,
     userId
   };
 };
