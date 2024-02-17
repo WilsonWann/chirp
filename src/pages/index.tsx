@@ -10,6 +10,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { PageLayout } from "~/components/layout";
 import { PostView } from "~/components/postview";
+import { NextPage } from "next";
 
 dayjs.extend(relativeTime);
 
@@ -78,6 +79,7 @@ const CreatePostWizard = () => {
 
 const Feed = () => {
   const { data, isLoading: postsLoading } = api.post.getAll.useQuery();
+  console.log("🚀 ~ Feed ~ data:", data);
 
   if (postsLoading) return <LoadingPage />;
 
@@ -92,7 +94,7 @@ const Feed = () => {
   );
 };
 
-export default function Home() {
+const Home: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
 
   //* Start fetching asap
@@ -114,4 +116,6 @@ export default function Home() {
       <Feed />
     </PageLayout>
   );
-}
+};
+
+export default Home;
