@@ -19,7 +19,6 @@ const addUserDataToPosts = async (posts: Post[]) => {
     })
   ).map(filterUserForClient);
 
-  // console.log("🚀 ~ getAll:publicProcedure.query ~ users:", users)
 
   return posts.map(post => {
     const author = users.find(user => user.id === post.authorId)
@@ -67,14 +66,12 @@ export const postRouter = createTRPCRouter({
 
   getAll: publicProcedure
     .query(async ({ ctx }) => {
-      console.log("🚀 ~ .query ~ ctx:", ctx)
       const posts = await ctx.prisma.post.findMany({
         take: 100,
         orderBy: [
           { createdAt: "desc" },
         ]
       });
-      console.log("🚀 ~ .query ~ posts:", posts)
 
       return addUserDataToPosts(posts);
     }),
