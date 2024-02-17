@@ -1,11 +1,23 @@
-import { withClerkMiddleware } from "@clerk/nextjs/server";
+import { authMiddleware } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-export default withClerkMiddleware(() => {
-  return NextResponse.next();
+export default authMiddleware({
+  publicRoutes: [
+    "/",
+    "/api/trpc/post.getById",
+    "/api/trpc/post.getAll",
+    "/api/trpc/post.getPostByUserId",
+    "/api/trpc/profile.getUserByUsername",
+  ],
+  afterAuth: () => {
+    return NextResponse.next();
+  }
 });
 
-// Stop Middleware running on static files
 export const config = {
-  matcher: "/((?!_next/image|_next/static|favicon.ico).*)",
-}
+  matcher: [
+    "/((?!.+\\.[\\w]+$|_next).*)",
+    "/",
+    "/(api|trpc)(.*)"
+  ],
+};
